@@ -9,36 +9,27 @@ export default class App extends React.Component {
     keyword: ''
   }
 
-  // handleNameChange = (e) => {
-  //   this.setState({ 
-  //     name: e.target.value
-  //    });
-  // }
-
-
   render(){
-    const filteredImageList = Data.filter(() =>{
-
-        if (!this.state.name) return true; 
-        if (Data.title === this.state.flavor) return true;
+    const filteredImageList = Data.filter((image) =>{
+        if (!this.state.keyword) return true; 
+        if (image.keyword === this.state.keyword) return true;
 
         return false;
       });
-
     const imageListNodes = filteredImageList.map(imageList => 
-      <ImageList
-        key={Data.keyword}
-        imageList = {imageList} />);
-
+      <ImageList 
+        key={imageList.title}
+        imageList={imageList} />);
+      console.log(imageListNodes)
     return(
-
+      <div>
+      <ul>
+        {imageListNodes}
+      </ul>
       <form>
-        Name
-        <input value={this.state.name}
-          onChange={this.handleNameChange} />
         keyword
         <select
-          value={this.state.flavor}
+          value={this.state.keyword}
           onChange={(e) => {
             this.setState({
               keyword: e.target.value
@@ -55,8 +46,11 @@ export default class App extends React.Component {
           <option value="lizard">lizard</option>
           <option value="dragon">dragon</option>
         </select>
-        <button>Submit</button>
       </form>
+      <div>
+        keyword: {this.state.keyword}
+      </div>
+      </div>
     )
   }
 }
