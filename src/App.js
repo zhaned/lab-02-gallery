@@ -1,25 +1,56 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React from 'react';
+import Data from './data.js';
+import ImageList from './ImageList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+export default class App extends React.Component {
+  state = {
+    keyword: ''
+  }
+
+  render(){
+    const filteredImageList = Data.filter((image) =>{
+        if (!this.state.keyword) return true; 
+        if (image.keyword === this.state.keyword) return true;
+
+        return false;
+      });
+    const imageListNodes = filteredImageList.map(imageList => 
+      <ImageList 
+        key={imageList.title}
+        imageList={imageList} />);
+      console.log(imageListNodes)
+    return(
+      <div>
+      <ul>
+        {imageListNodes}
+      </ul>
+      <form>
+        keyword
+        <select
+          value={this.state.keyword}
+          onChange={(e) => {
+            this.setState({
+              keyword: e.target.value
+            })
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          <option value="narwhal">narwhal</option>
+          <option value="rhino">rhino</option>
+          <option value="mouflon">mouflon</option>
+          <option value="markhor">markhor</option>
+          <option value="triceratops">triceratops</option>
+          <option value="addax">addax</option>
+          <option value="chameleon">chameleon</option>
+          <option value="lizard">lizard</option>
+          <option value="dragon">dragon</option>
+        </select>
+      </form>
+      <div>
+        keyword: {this.state.keyword}
+      </div>
+      </div>
+    )
+  }
 }
-
-export default App;
