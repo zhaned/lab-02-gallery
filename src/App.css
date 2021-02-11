@@ -10,6 +10,7 @@ header{
 
 li{
   min-height: 270px;
+  max-width: 350px;
   background-color: steelblue;
   width: 40%;
   color:rgb(212, 212, 212);
